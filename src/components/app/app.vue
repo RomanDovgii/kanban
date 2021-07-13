@@ -96,6 +96,9 @@ export default {
   methods: {
     handleModal() {
       const oldState = this.STATE.isModalOpen;
+      if (oldState) {
+        this.flushCurrent();
+      }
       this.STATE.isModalOpen = !oldState;
     },
     workWithTask(descriptionLocal, priorityLocal, idLocal = '') {
@@ -169,6 +172,9 @@ export default {
             type: ColumnType.DONE,
           };
           break;
+        case ColumnType.DONE:
+          this.deleteTask(id);
+          return;
         default:
           break;
       }
@@ -188,6 +194,15 @@ export default {
       const cardId = event.dataTransfer.getData('id');
       const card = this.CARDS.find((cardLocal) => cardLocal.id === cardId);
       card.type = columnType;
+    },
+    flushCurrent() {
+      this.STATE.selectedCard = {
+        id: '',
+        description: '',
+        priority: '',
+        type: ColumnType.PLANNED,
+        date: '',
+      };
     },
   },
 };

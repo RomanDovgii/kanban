@@ -38,9 +38,8 @@
       >Переместить влево</button>
       <button
         class="card__right"
-        :disabled="card.type === ColumnType.DONE"
         v-on:click="moveRight(card.id)"
-      >Переместить вправо</button>
+      >{{card.type === ColumnType.DONE ? 'Архивировать' : 'Переместить вправо'}}</button>
     </div>
   </div>
 </template>
