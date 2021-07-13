@@ -22,6 +22,8 @@
         :moveRight="moveRight"
         :moveLeft="moveLeft"
         :theme="theme"
+        :startDrag="startDrag"
+        :onDrop="onDrop"
         />
       </div>
     </div>
@@ -44,6 +46,8 @@ export default {
     'moveRight',
     'moveLeft',
     'theme',
+    'startDrag',
+    'onDrop',
   ],
   data() {
     return {

@@ -2,7 +2,8 @@
   <div
     class="card"
     :class="{'card--dark' : (theme === 'dark')}"
-    draggable="true">
+    draggable="true"
+    @dragstart="startDrag($event, card)">
     <h3 class="card__number">Задача № {{card.id}}</h3>
     <p class="card__description">
       {{card.description}}
@@ -56,6 +57,7 @@ export default {
     'moveRight',
     'moveLeft',
     'theme',
+    'startDrag',
   ],
   data() {
     return {

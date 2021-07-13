@@ -2,6 +2,9 @@
   <div
     class="cards-column"
     :class="{'cards-column--dark' : (theme === 'dark')}"
+    @drop="onDrop($event, name)"
+    @dragenter.prevent
+    @dragover.prevent
   >
 
       <h3
@@ -23,6 +26,7 @@
         :moveRight="moveRight"
         :moveLeft="moveLeft"
         :theme="theme"
+        :startDrag="startDrag"
         />
       </div>
   </div>
@@ -44,6 +48,8 @@ export default {
     'moveRight',
     'moveLeft',
     'theme',
+    'startDrag',
+    'onDrop',
   ],
 };
 </script>

@@ -11,6 +11,8 @@
     :moveRight="moveRight"
     :moveLeft="moveLeft"
     :theme="STATE.theme"
+    :startDrag="startDrag"
+    :onDrop="onDrop"
     />
   <Footer
     :theme="STATE.theme"
@@ -175,6 +177,19 @@ export default {
     changeTheme() {
       this.STATE.theme = this.STATE.theme === 'light' ? 'dark' : 'light';
       console.log(this.STATE.theme);
+    },
+    startDrag(event, item) {
+      console.log(item);
+      // eslint-disable-next-line no-param-reassign
+      event.dataTransfer.dropEffect = 'move';
+      // eslint-disable-next-line no-param-reassign
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData('id', item.id);
+    },
+    onDrop(event, columnType) {
+      const cardId = event.dataTransfer.getData('id');
+      const card = this.CARDS.find((cardLocal) => cardLocal.id === cardId);
+      card.type = columnType;
     },
   },
 };
