@@ -1,26 +1,67 @@
 <template>
-  <div class="card">
-    <h3 class="card__number">Test</h3>
+  <div
+    class="card"
+    :class="{'card--dark' : (theme === 'dark')}"
+    draggable="true">
+    <h3 class="card__number">Задача № {{card.id}}</h3>
     <p class="card__description">
-      Lorem ipsum, dolor sit amet consectetur
-      adipisicing elit. Voluptates dolores, quis ullam minus pariatur
-      velit consectetur, commodi, saepe veniam reprehenderit blanditiis
-      iusto quod aspernatur ipsam provident dolore illo eius distinctio?
+      {{card.description}}
     </p>
-    <p class="card__priority card__priority--high">1</p>
-    <p class="card__date">12.03.2020</p>
-    <div class="card__controls">
-      <button class="card__edit">Изменить</button>
-      <button class="card__delete">Удалить</button>
-      <button class="card__left">Переместить влево</button>
-      <button class="card__right">Переместить вправо</button>
+    <p
+      class="card__priority"
+      :class="{
+        'card__priority--low': (card.priority == 1),
+        'card__priority--below-middle': (card.priority == 2),
+        'card__priority--middle': (card.priority == 3),
+        'card__priority--upper-middle': (card.priority == 4),
+        'card__priority--high': (card.priority == 5),
+      }"
+    >{{card.priority}}</p>
+    <p class="card__date">{{card.date}}</p>
+    <div
+      class="card__controls"
+      :class="{'card__controls--dark' : (theme === 'dark')}"
+    >
+      <button
+        class="card__edit"
+        v-on:click="handleChangeCard(card.id)"
+      >Изменить</button>
+      <button
+        class="card__delete"
+        v-on:click="deleteTask(card.id)"
+      >Удалить</button>
+      <button
+        class="card__left"
+        :disabled="card.type === ColumnType.PLANNED"
+        v-on:click="moveLeft(card.id)"
+      >Переместить влево</button>
+      <button
+        class="card__right"
+        :disabled="card.type === ColumnType.DONE"
+        v-on:click="moveRight(card.id)"
+      >Переместить вправо</button>
     </div>
   </div>
 </template>
 
 <script>
+import { ColumnType } from '../../utils/const';
+
 export default {
   name: 'Card',
+  props: [
+    'card',
+    'handleChangeCard',
+    'deleteTask',
+    'moveRight',
+    'moveLeft',
+    'theme',
+  ],
+  data() {
+    return {
+      ColumnType,
+    };
+  },
 };
 </script>
 
@@ -35,6 +76,20 @@ export default {
     border: 2px solid #2699FB;
     border-radius: 25px;
     position: relative;
+  }
+
+  .card--dark {
+    background-color: #001930;
+    border: 2px solid #fff;
+  }
+
+  .card--dark h3,
+  .card--dark p {
+    color: #fff;
+  }
+
+  .card--dark p.card__priority {
+    color: #000;
   }
 
   .card__number {
@@ -61,7 +116,7 @@ export default {
     background-color: #2699FB;
     border-radius: 50%;
 
-    color: #fff;
+    color: #000;
     font-size: 1.6rem;
 
     display: flex;
@@ -102,6 +157,10 @@ export default {
     flex-wrap: wrap;
   }
 
+  .card__controls--dark button {
+    background-color: #003b72;
+  }
+
   .card__edit,
   .card__delete,
   .card__left,
@@ -135,6 +194,13 @@ export default {
   .card__left:active,
   .card__right:active {
     opacity: 0.3;
+  }
+
+  .card__edit:disabled,
+  .card__delete:disabled,
+  .card__left:disabled,
+  .card__right:disabled {
+    opacity: 0.2;
   }
 
   .card__edit {

@@ -1,7 +1,13 @@
 <template>
-  <main>
+  <main
+    :class="{'dark' : (theme === 'dark')}"
+  >
     <div class="main__wrapper">
-      <button class="add-task">Добавить задачу</button>
+      <button
+        class="add-task"
+        v-on:click="handleModal"
+        :class="{'add-task--dark' : (theme === 'dark')}"
+      >Добавить задачу</button>
 
       <div
         class="tasks"
@@ -10,6 +16,12 @@
         v-for="value in ColumnType"
         v-bind:key="value"
         :name="value"
+        :cards="getProperCards(cards, value)"
+        :handleChangeCard="handleChangeCard"
+        :deleteTask="deleteTask"
+        :moveRight="moveRight"
+        :moveLeft="moveLeft"
+        :theme="theme"
         />
       </div>
     </div>
@@ -24,10 +36,24 @@ export default {
   components: {
     Column,
   },
+  props: [
+    'cards',
+    'handleModal',
+    'handleChangeCard',
+    'deleteTask',
+    'moveRight',
+    'moveLeft',
+    'theme',
+  ],
   data() {
     return {
       ColumnType,
     };
+  },
+  methods: {
+    getProperCards(cards, cardType) {
+      return cards.filter((card) => card.type === cardType);
+    },
   },
 };
 </script>
@@ -36,6 +62,11 @@ export default {
   main {
     flex: 1;
     display: flex;
+    transition: background-color 0.3s;
+  }
+
+  .dark {
+    background-color: rgb(31, 31, 31);
   }
 
   .main__wrapper {
@@ -61,6 +92,12 @@ export default {
     color: #fff;
     font-size: 2rem;
     font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .add-task--dark {
+    background-color: #001930;
   }
 
   .tasks {

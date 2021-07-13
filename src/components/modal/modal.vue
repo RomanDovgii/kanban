@@ -1,12 +1,21 @@
 <template>
-  <form class="modal modal--hidden">
+  <form
+    class="modal"
+    v-on:submit="
+      $event.preventDefault();
+      workWithTask(description, priority, id);
+      description = '';
+      priority = '1';
+      handleModal();
+    ">
     <h2 class="modal__name">Test</h2>
     <label class="modal__label">
       Описание задачи:
       <textarea
-        name="description"
+        v-model="description"
         class="modal__textarea"
         placeholder="Введите описание"
+        required
       ></textarea>
     </label>
 
@@ -15,32 +24,75 @@
 
       <div class="modal__radio-wr">
         <label class="modal__label-radio">
-          <input type="radio" name="priority" class="modal__radio">
+          <input
+            v-model="priority"
+            type="radio"
+            value="1"
+            name="priority"
+            class="modal__radio"
+            checked="checked"
+            required
+          >
           1
         </label>
         <label class="modal__label-radio">
-          <input type="radio" name="priority" class="modal__radio">
+          <input
+            v-model="priority"
+            type="radio"
+            value="2"
+            name="priority"
+            class="modal__radio" required
+          >
           2
         </label>
         <label class="modal__label-radio">
-          <input type="radio" name="priority" class="modal__radio">
+          <input
+            v-model="priority"
+            type="radio"
+            value="3"
+            name="priority"
+            class="modal__radio" required
+          >
           3
         </label>
         <label class="modal__label-radio">
-          <input type="radio" name="priority" class="modal__radio">
+          <input
+            v-model="priority"
+            type="radio"
+            value="4"
+            name="priority"
+            class="modal__radio" required
+          >
           4
         </label>
         <label class="modal__label-radio">
-          <input type="radio" name="priority" class="modal__radio">
+          <input v-model="priority"
+          type="radio"
+          value="5"
+          name="priority"
+          class="modal__radio">
           5
         </label>
       </div>
     </div>
 
     <div class="modal__controls">
-      <button type="submit" class="modal__save">Сохранить</button>
-      <button class="modal__cancel">Отменить</button>
-      <button class="modal__close">
+      <button
+        type="submit"
+        class="modal__save"
+       >Сохранить</button>
+      <button type="button"
+        class="modal__cancel"
+        v-on:click="
+          handleModal();
+        "
+      >Отменить</button>
+      <button type="button"
+        class="modal__close"
+        v-on:click="
+          handleModal();
+        "
+      >
         <span class="visually-hidden">Закрыть</span>
       </button>
     </div>
@@ -50,6 +102,20 @@
 <script>
 export default {
   name: 'Modal',
+  props: [
+    'handleModal',
+    'workWithTask',
+    'descriptionForChange',
+    'priorityForChange',
+    'idForChange',
+  ],
+  data() {
+    return {
+      description: this.descriptionForChange,
+      priority: this.priorityForChange,
+      id: this.idForChange,
+    };
+  },
 };
 </script>
 

@@ -1,7 +1,13 @@
 <template>
-  <footer class="footer">
+  <footer
+    class="footer"
+    :class="{'footer--dark' : (theme === 'dark')}"
+  >
     <section class="footer__developed-by">
-      <h2 class="footer__text">
+      <h2
+        class="footer__text"
+        :class="{'footer__text--dark' : (theme === 'dark')}"
+        >
         Довгий Роман Олегович группа 201-321
       </h2>
     </section>
@@ -11,6 +17,9 @@
 <script>
 export default {
   name: 'Footer',
+  props: [
+    'theme',
+  ],
 };
 </script>
 
@@ -18,6 +27,11 @@ export default {
   .footer {
     background-color: #F1F9FF;
     min-height: 5vh;
+    transition: background-color 0.3s;
+  }
+
+  .footer--dark {
+    background-color: #001930;
   }
 
   .footer__developed-by {
@@ -32,5 +46,10 @@ export default {
 
   .footer__text {
     color: #2699FB;
+    transition: color 0.3s;
+  }
+
+  .footer__text--dark {
+    color: #ffffff;
   }
 </style>

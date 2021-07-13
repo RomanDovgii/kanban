@@ -1,11 +1,29 @@
 <template>
-  <div class="cards-column">
-      <h3 class="cards-column__name">
+  <div
+    class="cards-column"
+    :class="{'cards-column--dark' : (theme === 'dark')}"
+  >
+
+      <h3
+        class="cards-column__name"
+        :class="{'cards-column__name--dark' : (theme === 'dark')}"
+        >
         {{name}}
       </h3>
 
-      <div class="cards-column__cards">
-        <Card/>
+      <div
+        class="cards-column__cards"
+        >
+        <Card
+        v-for="card in cards"
+        v-bind:key="card"
+        :card="card"
+        :handleChangeCard="handleChangeCard"
+        :deleteTask="deleteTask"
+        :moveRight="moveRight"
+        :moveLeft="moveLeft"
+        :theme="theme"
+        />
       </div>
   </div>
 </template>
@@ -20,6 +38,12 @@ export default {
   },
   props: [
     'name',
+    'cards',
+    'handleChangeCard',
+    'deleteTask',
+    'moveRight',
+    'moveLeft',
+    'theme',
   ],
 };
 </script>
@@ -33,8 +57,12 @@ export default {
     margin-left: 1rem;
     margin-right: 1rem;
     background-color: #F1F9FF;
-
+    transition: background-color 0.3s;
     border-radius: 25px;
+  }
+
+  .cards-column--dark {
+    background-color: #707070;
   }
 
   .cards-column__name {
@@ -49,5 +77,9 @@ export default {
     justify-content: center;
 
     background-color: #2699FB;
+  }
+
+  .cards-column__name--dark {
+    background-color: #01203b;
   }
 </style>
