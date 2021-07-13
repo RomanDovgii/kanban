@@ -130,7 +130,6 @@ export default {
       const removedIndex = this.CARDS.findIndex((card) => card.id === id);
 
       this.CARDS.splice(removedIndex, 1);
-      console.log(this.CARDS);
     },
     handleChangeCard(id) {
       this.STATE.selectedCard = Object.assign(this.CARDS.find((card) => card.id === id));
@@ -176,10 +175,8 @@ export default {
     },
     changeTheme() {
       this.STATE.theme = this.STATE.theme === 'light' ? 'dark' : 'light';
-      console.log(this.STATE.theme);
     },
     startDrag(event, item) {
-      console.log(item);
       // eslint-disable-next-line no-param-reassign
       event.dataTransfer.dropEffect = 'move';
       // eslint-disable-next-line no-param-reassign
