@@ -18,7 +18,7 @@
         'card__priority--high': (card.priority == 5),
       }"
     >{{card.priority}}</p>
-    <p class="card__date">{{card.date}}</p>
+    <p class="card__date">{{new Date(card.date).toLocaleDateString("ru-ru")}}</p>
     <div
       class="card__controls"
       :class="{'card__controls--dark' : (theme === 'dark')}"

@@ -60,35 +60,35 @@ export default {
           description: 'Изучить Vue',
           priority: 1,
           type: ColumnType.PLANNED,
-          date: 'Mon Jul 12 2021 23:28:39 GMT+0300 (Moscow Standard Time)',
+          date: '2021-07-13T01:41:59.164Z',
         },
         {
           id: '2',
           description: 'Изучить Vue',
           priority: 2,
           type: ColumnType.WORKING,
-          date: 'Mon Jul 11 2021 23:28:39 GMT+0300 (Moscow Standard Time)',
+          date: '2021-07-13T01:41:59.164Z',
         },
         {
           id: '3',
           description: 'Изучить Vue',
           priority: 3,
           type: ColumnType.DONE,
-          date: 'Mon Jul 10 2021 23:28:39 GMT+0300 (Moscow Standard Time)',
+          date: '2021-07-13T01:41:59.164Z',
         },
         {
           id: '4',
           description: 'Изучить Vue',
           priority: 4,
           type: ColumnType.WORKING,
-          date: 'Mon Jul 5 2021 23:28:39 GMT+0300 (Moscow Standard Time)',
+          date: '2021-07-13T01:41:59.164Z',
         },
         {
           id: '5',
           description: 'Изучить Vue',
           priority: 5,
           type: ColumnType.PLANNED,
-          date: 'Mon Jul 1 2021 23:28:39 GMT+0300 (Moscow Standard Time)',
+          date: '2021-07-13T01:41:59.164Z',
         },
       ],
     };
@@ -99,7 +99,7 @@ export default {
       this.STATE.isModalOpen = !oldState;
     },
     workWithTask(descriptionLocal, priorityLocal, idLocal = '') {
-      if (idLocal) {
+      if (idLocal !== '') {
         const oldCard = this.CARDS.find((card) => card.id === idLocal);
         const newData = {
           description: descriptionLocal,
@@ -109,9 +109,10 @@ export default {
       } else {
         let oldMaxId;
 
-        if (idLocal) {
+        if (!idLocal) {
           this.CARDS.sort((a, b) => a.id - b.id);
           oldMaxId = this.CARDS[this.CARDS.length - 1].id;
+          console.log(oldMaxId);
         } else {
           oldMaxId = 0;
         }
